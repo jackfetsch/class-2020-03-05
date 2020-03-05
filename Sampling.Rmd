@@ -16,7 +16,7 @@ sheets_deauth()
 # setup R code chunk. But, to be honest, I am just doing this here because I
 # couldn't figure out how to turn off the message from read_sheet.
 x <- read_sheet(ss =  "14HmwN2cEVAJHupuehCuLdwG9BXtR3COrxDgaaylLhkA") %>% 
-  clean_names() %?%
+  clean_names() %>%
   mutate(percent_red = red / 25)
 ```
 
@@ -28,7 +28,7 @@ x <- read_sheet(ss =  "14HmwN2cEVAJHupuehCuLdwG9BXtR3COrxDgaaylLhkA") %>%
 # Ahh. Now I look at the data and see that there are several impossible (?)
 # points: 8.7%, 19%, 25% and 77%. Is that bad data?
 x %>% 
-  ggplot(aes(red)) +
+  ggplot(aes(percent_red)) +
     geom_histogram(bins = 20) +
     labs(title = "Percentage of Red Beads Drawn",
         subtitle = "Should we be suspicious of those outliers?",
@@ -36,3 +36,9 @@ x %>%
         x = "Percentage of Red Beads Out of 25 Drawn",
         y = "Count") 
 ```
+
+```{r}
+urn <- tibble(bean_ID = 1:10000,
+              color = c(rep("Red", 2000), rep("White", 8000)))
+```
+
